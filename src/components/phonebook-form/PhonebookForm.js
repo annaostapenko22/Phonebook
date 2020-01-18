@@ -10,7 +10,7 @@ import "typeface-roboto";
 import Notification from "../alert/Notification";
 class PhonebookForm extends Component {
   state = {
-    contacts: [{id: "e216h02b", name: "Default", number: "3333"}],
+    contacts: [],
     filter: "",
     name: "",
     number: "",
@@ -92,7 +92,6 @@ class PhonebookForm extends Component {
   };
 
   render() {
-    console.log(this.state.contacts.length)
     const { contacts, name, number, filter } = this.state;
     const filteredItems = this.filterItems(filter, contacts);
     const { isOpen, alreadyExist } = this.state;
