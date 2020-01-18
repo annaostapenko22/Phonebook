@@ -88,7 +88,7 @@ class PhonebookForm extends Component {
 
   showNotification = notificationTitle => {
     this.setState({ notificationTitle, alreadyExist: true });
-    setTimeout(() => this.setState({ title: "", alreadyExist: false }), 3000);
+    setTimeout(() => this.setState({ notificationTitle: "", alreadyExist: false }), 3000);
   };
 
   render() {
