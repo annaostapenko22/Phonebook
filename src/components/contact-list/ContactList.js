@@ -23,8 +23,8 @@ class ContactList extends Component {
           <TransitionGroup component="ul" className={styles.list}>
             {this.props.value &&
               this.props.value.map(elem => (
-                <CSSTransition timeout={400} classNames={slideTransition} >
-                  <li key={elem.id} data-value={elem.id}>
+                <CSSTransition key={elem.id} timeout={400} classNames={slideTransition} >
+                  <li data-value={elem.id}>
                     <ContactItem
                       {...elem}
                       handleDelete={this.props.handleDelete}
