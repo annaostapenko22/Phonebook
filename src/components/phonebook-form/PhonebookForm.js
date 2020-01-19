@@ -20,7 +20,7 @@ class PhonebookForm extends Component {
     notitficationTitle: ""
   };
   componentDidMount() {
-    const users = JSON.parse(localStorage.getItem("users"));
+    const users = JSON.parse(localStorage.getItem("users")) || [];
     this.setState({ contacts: users, isOpen: true, alreadyExist: false });
   }
   componentDidUpdate(prevProps, prevState) {
