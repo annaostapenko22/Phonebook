@@ -19,7 +19,8 @@ class ContactList extends Component {
           <h2 className={styles.title}>Contacts</h2>
         </CSSTransition>
         <div className={styles.wrapper}>
-          <SearchPanel onHandleFilter={this.props.onHandleFilter} />
+          {this.props.contacts.length > 1 && ( <SearchPanel onHandleFilter={this.props.onHandleFilter} />)}
+         
           <TransitionGroup component="ul" className={styles.list}>
             {this.props.value &&
               this.props.value.map(elem => (
