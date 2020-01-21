@@ -24,7 +24,7 @@ class PhonebookForm extends Component {
     this.setState({ contacts: users, isOpen: true, alreadyExist: false });
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.contacts !== this.state.contacts) {
+    if (JSON.stringify(prevState.contacts) !== JSON.stringify(this.state.contacts)) {
       localStorage.setItem("users", JSON.stringify(this.state.contacts));
     }
   }
