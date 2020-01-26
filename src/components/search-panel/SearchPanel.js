@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import TextField from "@material-ui/core/TextField";
-import styles from "./SearchPanel.module.css"
+import styles from "./SearchPanel.module.css";
+import {connect} from "react-redux";
+import {setFilter} from "../../redux/actions"
 class SearchPanel extends Component {
   state = {
     value: '',
@@ -8,7 +10,7 @@ class SearchPanel extends Component {
   };
   onChangePanel = evt => {
     const values = evt.target.value.toLowerCase();
-    this.props.onHandleFilter(values);
+    this.props.setFilter(values)
   };
   render() {
     return (
@@ -21,4 +23,9 @@ class SearchPanel extends Component {
   }
 }
 
-export default SearchPanel;
+const mapDispatchToProps = (dispatch)=>({
+  setFilter: (value)=> dispatch(setFilter(value))
+}
+)
+
+export default connect(null,mapDispatchToProps)(SearchPanel);

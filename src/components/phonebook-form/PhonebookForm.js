@@ -8,10 +8,10 @@ import styles from "./PhonebookForm.module.css";
 import Button from "@material-ui/core/Button";
 import "typeface-roboto";
 import Notification from "../alert/Notification";
+import { connect } from "react-redux";
+import { addContact, deleteContact, setAllContacts } from "../../redux/actions";
 class PhonebookForm extends Component {
   state = {
-    contacts: [],
-    filter: "",
     name: "",
     number: "",
     isOpen: false,
@@ -20,12 +20,15 @@ class PhonebookForm extends Component {
     notitficationTitle: ""
   };
   componentDidMount() {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    this.setState({ contacts: users, isOpen: true, alreadyExist: false });
+    const users = JSON.parse(localStorage.getItem("users"));
+    this.props.setAllContacts(users);
+    this.setState({ isOpen: true, alreadyExist: false });
   }
   componentDidUpdate(prevProps, prevState) {
-    if (JSON.stringify(prevState.contacts) !== JSON.stringify(this.state.contacts)) {
-      localStorage.setItem("users", JSON.stringify(this.state.contacts));
+    if (
+      JSON.stringify(prevState.contacts) !== JSON.stringify(this.props.contacts)
+    ) {
+      localStorage.setItem("users", JSON.stringify(this.props.contacts));
     }
   }
 
@@ -54,14 +57,18 @@ class PhonebookForm extends Component {
       alert("PLease fill all the fields");
       return;
     }
-    if (this.state.contacts.find(elem => elem.name.includes(name))) {
+    if (this.props.contacts.find(elem => elem.name.includes(name))) {
       this.showNotification(`This contact: ${name} already exists`);
       return;
     }
-
-    this.getPost({ id: shortId.generate(), name, number });
+    const contact = {
+      id: shortId.generate(),
+      name,
+      number
+    };
     this.setState({ name: "" });
     this.setState({ number: "" });
+    this.props.addContact(contact);
   };
 
   getPost = post => {
@@ -70,12 +77,8 @@ class PhonebookForm extends Component {
     }));
   };
 
-  setFilterState = value => {
-    this.setState({ filter: value });
-  };
-
   filterItems = (filter, contacts) => {
-    if (this.state.contacts) {
+    if (this.props.contacts) {
       let contactList = [...contacts];
       if (filter) {
         contactList = contactList.filter(elem =>
@@ -88,11 +91,21 @@ class PhonebookForm extends Component {
 
   showNotification = notificationTitle => {
     this.setState({ notificationTitle, alreadyExist: true });
-    setTimeout(() => this.setState({ notificationTitle: "", alreadyExist: false, name: "", number: "" }), 3000);
+    setTimeout(
+      () =>
+        this.setState({
+          notificationTitle: "",
+          alreadyExist: false,
+          name: "",
+          number: ""
+        }),
+      3000
+    );
   };
 
   render() {
-    const { contacts, name, number, filter } = this.state;
+    const { contacts, filter } = this.props;
+    const { name, number } = this.state;
     const filteredItems = this.filterItems(filter, contacts);
     const { isOpen, alreadyExist } = this.state;
     return (
@@ -148,17 +161,21 @@ class PhonebookForm extends Component {
             </Button>
           </div>
         </form>
-        {this.state.contacts.length > 0 && (
-          <ContactList
-            value={filteredItems}
-            onHandleFilter={this.setFilterState}
-            handleDelete={this.deleteItems}
-            contacts={this.state.contacts}
-          />
-        )}
+        {contacts.length > 0 && <ContactList value={filteredItems} />}
       </div>
     );
   }
 }
 
-export default PhonebookForm;
+const mapStateToProps = state => ({
+  contacts: state.contacts,
+  filter: state.filter
+});
+
+const mapDispatchToProps = dispatch => ({
+  addContact: contact => dispatch(addContact(contact)),
+  deleteContact: id => dispatch(deleteContact(id)),
+  setAllContacts: contacts => dispatch(setAllContacts(contacts))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PhonebookForm);
