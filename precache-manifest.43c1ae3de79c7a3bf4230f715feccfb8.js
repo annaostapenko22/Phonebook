@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7cb6944e8df73c435317227856b4eb6f",
+    "revision": "e124db6f909f462a9ef4adec953e02fb",
     "url": "/Phonebook/./index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Phonebook/./static/css/2.c8e2f0df.chunk.css"
   },
   {
-    "revision": "097470c6fcff1c17f20e",
+    "revision": "92988e24fcd3d9ac7be4",
     "url": "/Phonebook/./static/css/main.5f8b0a56.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Phonebook/./static/js/2.8378956e.chunk.js.LICENSE"
   },
   {
-    "revision": "097470c6fcff1c17f20e",
-    "url": "/Phonebook/./static/js/main.60a8585c.chunk.js"
+    "revision": "92988e24fcd3d9ac7be4",
+    "url": "/Phonebook/./static/js/main.bfee2f9c.chunk.js"
   },
   {
     "revision": "925b2b8637970c59eae3",
