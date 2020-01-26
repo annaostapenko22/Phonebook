@@ -7,7 +7,7 @@ class SearchPanel extends Component {
    
   };
   onChangePanel = evt => {
-    const values = evt.target.value;
+    const values = evt.target.value.toLowerCase();
     this.props.onHandleFilter(values);
   };
   render() {
